@@ -7,6 +7,8 @@
     "applications:start": "npm-run-all --parallel start:*",
     "install:main": "cd main && yarn",
     "start:main": "cd main && yarn start",
+    "install:purehtml": "cd purehtml && yarn",
+    "start:purehtml": "cd purehtml && yarn start",
     "install:vue3": "cd vue3 && yarn",
     "start:vue3": "cd vue3 && yarn start"
   },
@@ -14,6 +16,7 @@
     
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "npm-run-all": "^4.1.5"
   }
 }

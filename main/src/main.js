@@ -10,7 +10,13 @@ registerMicroApps(
             name: 'vue3',
             entry: '//localhost:7105',
             container: '#subapp-viewport',
-            activeRule: '/vue3',
+            activeRule: '/vue3'
+        },
+        {
+            name: 'purehtml',
+            entry: '//localhost:7104',
+            container: '#subapp-viewport',
+            activeRule: '/purehtml'
         }
     ],
     {
@@ -48,7 +54,7 @@ setGlobalState({
 /**
  * Step3 设置默认进入的子应用
  */
-setDefaultMountApp('/vue3/about');
+setDefaultMountApp('/vue3');
 
 /**
  * Step4 启动应用
