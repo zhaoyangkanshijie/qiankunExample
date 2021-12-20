@@ -6,6 +6,7 @@
 * [qiankun源码与umi基座样例](https://github.com/umijs/qiankun)
 * [qiankun教程](https://www.jianshu.com/p/a5d9c53abde3)
 * [基于 qiankun 的微前端最佳实践（图文并茂） - 应用间通信篇](https://cloud.tencent.com/developer/article/1770605)
+* [qiankun通信样例代码](https://github.com/a1029563229/micro-front-template/tree/feature-communication)
 
 ## 目录
 
@@ -26,7 +27,22 @@
 
 vue3子应用及其它子应用(含mount/unmount/bootstrap/打包配置)与官方样例完全一致
 
-基座进入子应用页面需使用pushState，而不是router-link，参考基座App.vue
+配好router和store
+```js
+import { createRouter, createWebHistory } from 'vue-router';
+import routes from './router';
+import store from './store';
+
+let app = createApp(App);
+let history = createWebHistory('/');
+let router = createRouter({
+    history,
+    routes,
+});
+app.use(router);
+app.use(store);
+app.mount('#app');
+```
 
 根目录package.json保留cross-env用作purehtml运行和npm-run-all并发运行所有应用
 

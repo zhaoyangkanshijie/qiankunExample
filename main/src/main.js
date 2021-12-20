@@ -1,8 +1,19 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { registerMicroApps, runAfterFirstMounted, setDefaultMountApp, start, initGlobalState } from 'qiankun';
+import { createRouter, createWebHistory } from 'vue-router';
+import routes from './router';
+import store from './store';
 
-createApp(App).mount('#app')
+let app = createApp(App);
+let history = createWebHistory('/');
+let router = createRouter({
+    history,
+    routes,
+});
+app.use(router);
+app.use(store);
+app.mount('#app');
 
 registerMicroApps(
     [
