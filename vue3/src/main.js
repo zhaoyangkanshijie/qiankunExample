@@ -9,6 +9,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import App from './App.vue';
 import routes from './router';
 import store from './store';
+import actions from './shared/actions'
+import SharedModule from './shared/index'
 
 let router = null;
 let instance = null;
@@ -16,6 +18,16 @@ let history = null;
 
 
 function render(props = {}) {
+  if (props) {
+    // 注入 actions 实例
+    actions.setActions(props);
+  }
+
+  // 当传入的 shared 为空时，使用子应用自身的 shared
+  // 当传入的 shared 不为空时，主应用传入的 shared 将会重载子应用的 shared
+  const { shared = SharedModule.getShared() } = props;
+  SharedModule.overloadShared(shared);
+
   const { container } = props;
   history = createWebHistory(window.__POWERED_BY_QIANKUN__ ? '/vue3' : '/');
   router = createRouter({

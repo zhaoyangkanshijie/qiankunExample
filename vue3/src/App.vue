@@ -5,15 +5,32 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
-
+import { onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import actions from "@/shared/actions";
 export default {
-  name: 'App'
-}
+  name: "App",
+  setup() {
+    const route = useRoute();
+    const router = useRouter();
+
+    onMounted(() => {
+      actions.onGlobalStateChange((state) => {
+        const { token } = state;
+        console.log("登录信息", token);
+        console.log("vue-router", route, router);
+        //router.push("/about");
+      }, true);
+    });
+
+    return {};
+  },
+};
 </script>
 
 <style>

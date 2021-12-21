@@ -1,13 +1,29 @@
 <template>
   <div class="about-content">
     <h1>This is about page</h1>
+    <button @click="login()">redux login</button>
   </div>
 </template>
 
 <script>
+import { onMounted } from "vue";
+import shared from "../shared/index";
 export default {
-  name: 'About',
-  setup() {},
+  name: "About",
+  setup() {
+    const login = () => {
+      shared.setToken("reduxToken");
+    };
+
+    onMounted(() => {
+      const token = shared.getToken();
+      console.log("receive redux token2", token);
+    });
+
+    return {
+      login,
+    };
+  },
 };
 </script>
 

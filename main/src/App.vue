@@ -15,13 +15,13 @@
 
 <script>
 import { onMounted } from 'vue';
-import actions from "./shared/action";
+import actions from "./shared/actions";
 export default {
   name: 'App',
   setup() {
     const login = () => {
       actions.setGlobalState({ 
-        token: 'loginToken'  
+        token: 'mainLoginToken'  
       });
     }
 

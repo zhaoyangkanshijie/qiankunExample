@@ -1,9 +1,10 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import { registerMicroApps, runAfterFirstMounted, setDefaultMountApp, start, initGlobalState } from 'qiankun';
+import { registerMicroApps, runAfterFirstMounted, setDefaultMountApp, start } from 'qiankun';
 import { createRouter, createWebHistory } from 'vue-router';
 import routes from './router';
 import store from './store';
+import shared from './shared/index'
 
 let app = createApp(App);
 let history = createWebHistory('/');
@@ -21,13 +22,17 @@ registerMicroApps(
             name: 'vue3',
             entry: '//localhost:7105',
             container: '#subapp-viewport',
-            activeRule: '/vue3'
+            activeRule: '/vue3',
+            // 通过 props 将 shared 传递给子应用
+            props: { shared }
         },
         {
             name: 'purehtml',
             entry: '//localhost:7104',
             container: '#subapp-viewport',
-            activeRule: '/purehtml'
+            activeRule: '/purehtml',
+            // 通过 props 将 shared 传递给子应用
+            props: { shared }
         }
     ],
     {
@@ -48,19 +53,6 @@ registerMicroApps(
         ],
     },
 );
-
-const { onGlobalStateChange, setGlobalState } = initGlobalState({
-    user: 'qiankun',
-});
-
-onGlobalStateChange((value, prev) => console.log('[onGlobalStateChange - master]:', value, prev));
-
-setGlobalState({
-    ignore: 'master',
-    user: {
-        name: 'master',
-    },
-});
 
 /**
  * Step3 设置默认进入的子应用
